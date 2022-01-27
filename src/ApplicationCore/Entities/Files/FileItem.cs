@@ -1,6 +1,6 @@
-﻿namespace Microsoft.eShopWeb.Web.ViewModels.File;
+﻿namespace Microsoft.eShopWeb.ApplicationCore.Entities.Files;
 
-public class FileViewModel
+public class FileItem
 {
     public string FileName { get; set; }
     public string Url { get; set; }

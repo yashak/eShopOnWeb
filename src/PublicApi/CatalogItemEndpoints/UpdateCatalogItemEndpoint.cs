@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.IO;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -17,19 +18,21 @@ public class UpdateCatalogItemEndpoint : IEndpoint<IResult, UpdateCatalogItemReq
 {
     private IRepository<CatalogItem> _itemRepository;
     private readonly IUriComposer _uriComposer;
+    private IFileSystem _webFileSystem;
 
     public UpdateCatalogItemEndpoint(IUriComposer uriComposer)
     {
-        _uriComposer = uriComposer;
+        _uriComposer = uriComposer;        
     }
 
     public void AddRoute(IEndpointRouteBuilder app)
     {
         app.MapPut("api/catalog-items",
             [Authorize(Roles = BlazorShared.Authorization.Constants.Roles.ADMINISTRATORS, AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)] async
-            (UpdateCatalogItemRequest request, IRepository<CatalogItem> itemRepository) =>
+            (UpdateCatalogItemRequest request, IRepository<CatalogItem> itemRepository, IFileSystem webFileSystem) =>
             {
                 _itemRepository = itemRepository;
+                _webFileSystem = webFileSystem;
                 return await HandleAsync(request);
             })
             .Produces<UpdateCatalogItemResponse>()
@@ -44,6 +47,22 @@ public class UpdateCatalogItemEndpoint : IEndpoint<IResult, UpdateCatalogItemReq
 
         existingItem.UpdateDetails(request.Name, request.Description, request.Price);
         existingItem.UpdateBrand(request.CatalogBrandId);
+
+        if (string.IsNullOrEmpty(request.PictureBase64) && string.IsNullOrEmpty(request.PictureUri))
+        {
+            existingItem.UpdatePictureUri("eCatalog-item-default.png");            
+        }
+        else
+        {
+            // TODO: fix this - save into storage account for temporary upload
+            var cancellationToken = new System.Threading.CancellationToken();
+            var picName = $"{existingItem.Id}{Path.GetExtension(request.PictureName)}";
+            if (await _webFileSystem.SavePicture($"{picName}", request.PictureBase64, cancellationToken))
+            {
+                existingItem.UpdatePictureUri(picName);
+            }
+        }
+
         existingItem.UpdateType(request.CatalogTypeId);
 
         await _itemRepository.UpdateAsync(existingItem);
