@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entity\Account\**" />
+    <Compile Remove="Entity\Manage\**" />
+    <EmbeddedResource Remove="Entity\Account\**" />
+    <EmbeddedResource Remove="Entity\Manage\**" />
+    <None Remove="Entity\Account\**" />
+    <None Remove="Entity\Manage\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Entity\BasketComponent.cs" />
+    <Compile Remove="Entity\Order.cs" />
+    <Compile Remove="Entity\OrderItem.cs" />
+    <Compile Remove="Services\CachedCatalogViewModelService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj" />
+  </ItemGroup>
+
+</Project>
