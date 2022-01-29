@@ -7,8 +7,63 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="HealthChecks\**" />
+    <Compile Remove="Pages\Admin\**" />
+    <Compile Remove="Pages\Basket\**" />
+    <Compile Remove="ViewModels\Account\**" />
+    <Compile Remove="ViewModels\Manage\**" />
+    <Compile Remove="Views\Account\**" />
+    <Compile Remove="Views\Manage\**" />
+    <Compile Remove="Views\Order\**" />
+    <Content Remove="HealthChecks\**" />
+    <Content Remove="Pages\Admin\**" />
+    <Content Remove="Pages\Basket\**" />
+    <Content Remove="ViewModels\Account\**" />
+    <Content Remove="ViewModels\Manage\**" />
+    <Content Remove="Views\Account\**" />
+    <Content Remove="Views\Manage\**" />
+    <Content Remove="Views\Order\**" />
+    <EmbeddedResource Remove="HealthChecks\**" />
+    <EmbeddedResource Remove="Pages\Admin\**" />
+    <EmbeddedResource Remove="Pages\Basket\**" />
+    <EmbeddedResource Remove="ViewModels\Account\**" />
+    <EmbeddedResource Remove="ViewModels\Manage\**" />
+    <EmbeddedResource Remove="Views\Account\**" />
+    <EmbeddedResource Remove="Views\Manage\**" />
+    <EmbeddedResource Remove="Views\Order\**" />
+    <None Remove="HealthChecks\**" />
+    <None Remove="Pages\Admin\**" />
+    <None Remove="Pages\Basket\**" />
+    <None Remove="ViewModels\Account\**" />
+    <None Remove="ViewModels\Manage\**" />
+    <None Remove="Views\Account\**" />
+    <None Remove="Views\Manage\**" />
+    <None Remove="Views\Order\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Controllers\ManageController.cs" />
+    <Compile Remove="Controllers\OrderController.cs" />
+    <Compile Remove="Interfaces\IBasketViewModelService.cs" />
+    <Compile Remove="Pages\Shared\Components\BasketComponent\Basket.cs" />
+    <Compile Remove="Services\BasketViewModelService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Views\Shared\Components\Basket\Default.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\ApplicationCore\ApplicationCore.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Shared\Components\Basket\" />
   </ItemGroup>
 
 </Project>
