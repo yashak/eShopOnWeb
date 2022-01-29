@@ -6,6 +6,9 @@ using Microsoft.eShopWeb.Infrastructure.Logging;
 using Microsoft.eShopWeb.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Web.MVC.Services;
+using BasketService = Web.MVC.Services.BasketService;
+using OrderService = Web.MVC.Services.OrderService;
 
 namespace Microsoft.eShopWeb.Web.Configuration;
 
@@ -14,12 +17,14 @@ public static class ConfigureCoreServices
     public static IServiceCollection AddCoreServices(this IServiceCollection services,
         IConfiguration configuration)
     {
-        services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
-        services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+        services.AddHttpClient();
+
+        //services.AddScoped(typeof(IReadRepository<>), typeof(EfRepository<>));
+        //services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
         services.AddScoped<IBasketService, BasketService>();
         services.AddScoped<IOrderService, OrderService>();
-        services.AddScoped<IBasketQueryService, BasketQueryService>();
+        //services.AddScoped<IBasketQueryService, BasketQueryService>();
         services.AddSingleton<IUriComposer>(new UriComposer(configuration.Get<CatalogSettings>()));
         services.AddScoped(typeof(IAppLogger<>), typeof(LoggerAdapter<>));
         services.AddTransient<IEmailSender, EmailSender>();

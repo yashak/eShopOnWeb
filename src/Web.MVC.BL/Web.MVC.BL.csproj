@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -19,7 +19,6 @@
     <Compile Remove="Entity\BasketComponent.cs" />
     <Compile Remove="Entity\Order.cs" />
     <Compile Remove="Entity\OrderItem.cs" />
-    <Compile Remove="Services\CachedCatalogViewModelService.cs" />
   </ItemGroup>
 
   <ItemGroup>
